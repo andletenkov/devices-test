@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  device_app:
+    image: "a201020/qa-test-task:v0.1"
+    expose:
+      - "5585"
+  tests:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    environment:
+      DEVICE_APP_HOST: device_app
+      DEVICE_APP_PORT: 5585
+    depends_on:
+      - device_app
