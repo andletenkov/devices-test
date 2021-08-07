@@ -1,9 +1,8 @@
 import json
 import logging
-from typing import Iterator, Any, Union
-
 import requests
 import websocket
+from typing import Iterator, Any, Union
 from requests import Session
 
 
