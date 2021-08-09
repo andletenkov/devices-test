@@ -43,7 +43,7 @@ docker-compose up --exit-code-from tests
 ```
 
 ## Issues
-#### Total issues count: 14
+#### Total issues count: 13
 1. Could not monitor Transmission device data (major). 
     * Steps to reproduce:
          1. Call `start_monitoring` method with `129` address specified
