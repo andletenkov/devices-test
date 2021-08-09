@@ -41,3 +41,18 @@
 ```bash
 docker-compose up --exit-code-from tests
 ```
+
+## Issues
+#### Total issues count: 14
+1. Could not monitor Transmission device data (major). 
+    * Steps to reproduce:
+         1. Call `start_monitoring` method with `129` address specified
+         2. Iterate over response to obtain device info
+    * Expected result: Device info present in response
+    * Actual result: `Not Found` in response
+
+2. Could not obtain report with type `400` for all kind of devices (major).
+   * Steps to reproduce:
+     1. Call `GET /report` with `repId` specified as `400`
+   * Expected result: Response status – 200 OK. Report content present in response
+   * Actual result: Response status – 404 Not Found. `Report is not exist` in response

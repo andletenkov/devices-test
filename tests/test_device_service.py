@@ -10,6 +10,15 @@ p = pytest.param
 def test_get_devices_info(device_client):
     r = device_client.get_devices()
     assert r.ok, f'Expected status code 200, but was {r.status_code}'
+    assert isinstance(r.json(), list), 'Expected list of devices'
+    for device in r.json():
+        assert device.get('address'), 'Device has no address filed'
+        assert device.get('name'), 'Device has no name field'
+        assert device.get('pin_1_pwm_d'), 'Device has no pin1 duty field'
+        assert device.get('pin_1_pwm_f'), 'Device has no pin1 frequency field'
+        assert device.get('pin_2_pwm_d'), 'Device has no pin2 duty field'
+        assert device.get('pin_2_pwm_f'), 'Device has no pin2 frequency field'
+        assert device.get('type'), 'Device has no type field'
 
 
 @parametrize('param, value, device_field', [
@@ -80,10 +89,10 @@ def test_get_report_invalid_params(device_client, params, expected_status, expec
 
 
 @parametrize('address, web_address, duty1, duty2, freq1, freq2', [
-    ('4A', 74, random_percent(), random_percent(), random_hz(), random_hz()),
-    ('65', 101, random_percent(), random_percent(), random_hz(), random_hz()),
-    ('80', 129, random_percent(), random_percent(), random_hz(), random_hz()),
-    ('3F', 63, random_percent(), random_percent(), random_hz(), random_hz()),
+    ('4A', '74', random_percent(), random_percent(), random_hz(), random_hz()),
+    ('65', '101', random_percent(), random_percent(), random_hz(), random_hz()),
+    ('80', '129', random_percent(), random_percent(), random_hz(), random_hz()),
+    ('3F', '63', random_percent(), random_percent(), random_hz(), random_hz()),
 ])
 def test_device_monitoring(device_client, address, web_address, duty1, duty2, freq1, freq2):
     device_client.edit_device(address=address, duty1=duty1, freq1=freq1)
